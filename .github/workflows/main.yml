@@ -1,1 +1,1261 @@
+<!DOCTYPE html>
+<html lang="ru" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НейроПрограммирование v5.0 - Дисциплина, Вим Хоф, 4-7-8, Память, Речь и Уверенность</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        gum: {
+                            pink: '#FFB7D5',
+                            lightPink: '#FFF0F5',
+                            lavender: '#E2D5F8',
+                            mint: '#C1F0E7',
+                            sky: '#CBE6FF',
+                            yellow: '#FFF3B0',
+                        }
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                        '5xl': '2.5rem',
+                        '6xl': '3rem'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            transition: background-color 0.5s ease, color 0.5s ease;
+            user-select: none;
+            -webkit-user-select: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body.light {
+            background: linear-gradient(135deg, #FFF0F5 0%, #E8F3FF 50%, #F5E8FF 100%);
+            background-attachment: fixed;
+            color: #334155;
+        }
+
+        body.dark {
+            background: linear-gradient(135deg, #090D16 0%, #111827 50%, #1E1029 100%);
+            background-attachment: fixed;
+            color: #F1F5F9;
+        }
+
+        .glass-card {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: all 0.4s ease;
+        }
+        .light .glass-card {
+            background: rgba(255, 255, 255, 0.78);
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            box-shadow: 0 20px 40px -15px rgba(255, 183, 213, 0.35);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.75);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-pill {
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .light .glass-pill {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1.5px solid rgba(255, 255, 255, 0.9);
+        }
+        .dark .glass-pill {
+            background: rgba(51, 65, 85, 0.7);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Unified Spring Button Touch Feedback */
+        button, .bubble-btn {
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, opacity 0.2s ease;
+            outline: none;
+        }
+        button:active, .bubble-btn:active {
+            transform: scale(0.92) !important;
+        }
+        button:hover, .bubble-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .floating {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        #wimSphere {
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.5s ease;
+        }
+
+        .color-ball {
+            transition: all 0.25s ease;
+        }
+        .color-ball.active-glow {
+            transform: scale(1.18);
+            box-shadow: 0 0 30px currentColor;
+        }
+
+        .swish-image {
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #A855F7; border-radius: 20px; }
+    </style>
+</head>
+<body class="light pb-24">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="max-w-6xl mx-auto pt-6 px-4 flex justify-between items-center relative z-20">
+        <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-3xl bg-gradient-to-tr from-pink-400 via-purple-400 to-indigo-400 flex items-center justify-center shadow-lg text-white font-black text-xl">
+                🧠
+            </div>
+            <div>
+                <h1 class="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-500">
+                    НейроПрограммирование
+                </h1>
+                <p class="text-xs font-semibold opacity-60">НЛП • Дисциплина • Вим Хоф • 4-7-8 • Уверенность</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <!-- Theme Toggle Button -->
+            <button onclick="toggleTheme()" class="glass-pill px-4 py-2 rounded-full flex items-center space-x-2 text-xs font-extrabold hover:opacity-80 shadow-sm bubble-btn">
+                <i id="themeIcon" class="fas fa-moon text-amber-400"></i>
+                <span id="themeText">Ночь</span>
+            </button>
+
+            <!-- Audio Toggle -->
+            <button id="audioBtn" onclick="toggleAudio()" class="glass-pill px-4 py-2 rounded-full flex items-center space-x-2 text-xs font-extrabold shadow-sm bubble-btn">
+                <i id="audioIcon" class="fas fa-volume-mute text-pink-400"></i>
+                <span id="audioText">Альфа-Звук</span>
+            </button>
+
+            <!-- User XP -->
+            <div class="glass-pill px-4 py-2 rounded-3xl flex items-center space-x-2 shadow-sm">
+                <span class="text-xs font-bold opacity-60">Уровень <span id="userLevel" class="text-purple-500 font-extrabold">1</span></span>
+                <span class="text-xs font-extrabold text-pink-500" id="userXP">0 XP</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO AFFIRMATION BANNER -->
+    <section class="max-w-6xl mx-auto mt-6 px-4">
+        <div class="glass-card rounded-5xl p-6 md:p-8 relative overflow-hidden floating">
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-2 text-center md:text-left">
+                    <span class="inline-block px-3 py-1 bg-pink-500/10 text-pink-500 font-bold text-xs rounded-full uppercase tracking-wider">
+                        Фундамент Силы Воли
+                    </span>
+                    <h2 id="affBanner" class="text-lg md:text-xl font-extrabold leading-relaxed">
+                        То, куда ты направляешь свою волю и внимание, становится твоей реальностью.
+                    </h2>
+                    <p class="text-xs md:text-sm opacity-70 font-medium">
+                        Сон, питание и физическая нагрузка — три главных источника вашей нейронной энергии.
+                    </p>
+                </div>
+                <button onclick="nextAffirmation()" class="px-6 py-3 bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold rounded-2xl shadow-md bubble-btn shrink-0 text-xs md:text-sm flex items-center space-x-2">
+                    <i class="fas fa-sparkles"></i>
+                    <span>Новая Аффирмация</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="max-w-6xl mx-auto mt-6 px-4">
+        <div class="glass-card p-2 rounded-4xl flex space-x-2 justify-between max-w-4xl mx-auto overflow-x-auto">
+            <button onclick="switchTab('wimhof')" id="tab-wimhof" class="tab-btn flex-1 py-3 px-4 rounded-3xl font-bold text-xs md:text-sm whitespace-nowrap transition-all duration-300 bg-white dark:bg-slate-800 text-purple-600 shadow-md">
+                <i class="fas fa-wind mr-2"></i>Дыхание
+            </button>
+            <button onclick="switchTab('confidence')" id="tab-confidence" class="tab-btn flex-1 py-3 px-4 rounded-3xl font-bold text-xs md:text-sm whitespace-nowrap transition-all duration-300 opacity-60">
+                <i class="fas fa-shield-halved mr-2"></i>Уверенность
+            </button>
+            <button onclick="switchTab('memory')" id="tab-memory" class="tab-btn flex-1 py-3 px-4 rounded-3xl font-bold text-xs md:text-sm whitespace-nowrap transition-all duration-300 opacity-60">
+                <i class="fas fa-brain mr-2"></i>Память (3)
+            </button>
+            <button onclick="switchTab('speech')" id="tab-speech" class="tab-btn flex-1 py-3 px-4 rounded-3xl font-bold text-xs md:text-sm whitespace-nowrap transition-all duration-300 opacity-60">
+                <i class="fas fa-microphone-alt mr-2"></i>Речь & НЛП (3)
+            </button>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: BREATHING SYSTEM (WIM HOF + 4-7-8) -->
+    <main id="section-wimhof" class="tab-content max-w-6xl mx-auto mt-6 px-4">
+        <div class="glass-card rounded-5xl p-6 md:p-8 text-center">
+            <h3 class="text-2xl font-black mb-2">Нейро-Практики Дыхания</h3>
+            <p class="text-xs md:text-sm opacity-70 max-w-2xl mx-auto mb-6">
+                Выберите режим ниже. Нажмите «Подробнее», чтобы изучить биологические механизмы и научную базу.
+            </p>
+
+            <!-- Mode Selector Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto mb-8">
+                
+                <!-- Card 1 -->
+                <div class="glass-pill p-5 rounded-3xl text-left border-2 border-purple-400 flex flex-col justify-between" id="wbox-classic">
+                    <div>
+                        <div class="font-bold text-sm text-purple-500 mb-1 flex justify-between items-center">
+                            <span>1. Классический Вим Хоф</span>
+                            <button onclick="toggleBreathDesc('desc-classic')" class="text-xs px-2 py-1 bg-purple-500/10 text-purple-600 rounded-lg hover:bg-purple-500/20 bubble-btn">
+                                Подробнее <i class="fas fa-chevron-down ml-1"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs font-semibold opacity-70">30 глубоких вдохов &rarr; Задержка дыхания &rarr; Восстановительный вдох (15 сек)</p>
+                        
+                        <div id="desc-classic" class="hidden mt-3 text-xs space-y-2 pt-2 border-t border-purple-200 dark:border-slate-700 leading-relaxed">
+                            <p><b>Что происходит:</b> Интенсивное вымывание CO2 (гипокапния) и временное повышение pH крови (алкалоз).</p>
+                            <p><b>Что делает организм:</b> Вызывает выброс адреналина и норадреналина без выделения кортизола (стрессового гормона). Активирует антивоспалительный отклик иммунной системы.</p>
+                            <p><b>Чем помогает:</b> Повышает порог выносливости, приучает мозг сохранять покой при гипоксии и сильных внешних нагрузках.</p>
+                        </div>
+                    </div>
+                    <button onclick="selectWimMode('classic')" class="mt-4 w-full py-2 bg-purple-500 text-white rounded-xl text-xs font-bold bubble-btn">
+                        Выбрать Classic
+                    </button>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-pill p-5 rounded-3xl text-left flex flex-col justify-between" id="wbox-express">
+                    <div>
+                        <div class="font-bold text-sm text-pink-500 mb-1 flex justify-between items-center">
+                            <span>2. Энерго-Экспресс</span>
+                            <button onclick="toggleBreathDesc('desc-express')" class="text-xs px-2 py-1 bg-pink-500/10 text-pink-600 rounded-lg hover:bg-pink-500/20 bubble-btn">
+                                Подробнее <i class="fas fa-chevron-down ml-1"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs font-semibold opacity-70">15 быстрых силовых циклов &rarr; Кратковременная задержка</p>
+                        
+                        <div id="desc-express" class="hidden mt-3 text-xs space-y-2 pt-2 border-t border-pink-200 dark:border-slate-700 leading-relaxed">
+                            <p><b>Что происходит:</b> Скоростная стимуляция симпатической нервной системы диафрагмальными толчками.</p>
+                            <p><b>Что делает организм:</b> Повышает уровень глюкозы в крови за счет выброса дофамина и адреналина, расширяет бронхи.</p>
+                            <p><b>Чем помогает:</b> Ликвидирует сонливость, пробивает апатию, настраивает на волевой рывок перед сложной задачей.</p>
+                        </div>
+                    </div>
+                    <button onclick="selectWimMode('express')" class="mt-4 w-full py-2 bg-pink-500 text-white rounded-xl text-xs font-bold bubble-btn">
+                        Выбрать Express
+                    </button>
+                </div>
+
+                <!-- Card 3 (UPDATED: 4-7-8 METHOD) -->
+                <div class="glass-pill p-5 rounded-3xl text-left flex flex-col justify-between" id="wbox-relax">
+                    <div>
+                        <div class="font-bold text-sm text-cyan-500 mb-1 flex justify-between items-center">
+                            <span>3. Метод 4-7-8 (Регенерация)</span>
+                            <button onclick="toggleBreathDesc('desc-relax')" class="text-xs px-2 py-1 bg-cyan-500/10 text-cyan-600 rounded-lg hover:bg-cyan-500/20 bubble-btn">
+                                Подробнее <i class="fas fa-chevron-down ml-1"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs font-semibold opacity-70">Вдох (4 сек) &rarr; Задержка (7 сек) &rarr; Медленный выдох (8 сек)</p>
+                        
+                        <div id="desc-relax" class="hidden mt-3 text-xs space-y-2 pt-2 border-t border-cyan-200 dark:border-slate-700 leading-relaxed">
+                            <p><b>Для чего:</b> Мгновенное переключение нервной системы из состояния стресса («бей или беги») в состояние глубокого восстановления («отдыхай и восстанавливайся»).</p>
+                            <p><b>Что делает:</b> Стимулирует блуждающий нерв (Nervus Vagus), мягко снижает пульс и замедляет волновую активность мозга до альфа- и тета-ритмов.</p>
+                            <p><b>Чем помогает:</b> Быстро снимает ментальную тревогу, понижает артериальное давление, помогает легко засыпать и качественно восстанавливать силы.</p>
+                        </div>
+                    </div>
+                    <button onclick="selectWimMode('relax')" class="mt-4 w-full py-2 bg-cyan-500 text-white rounded-xl text-xs font-bold bubble-btn">
+                        Выбрать 4-7-8
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Breathing Sphere Visualizer -->
+            <div class="relative w-64 h-64 mx-auto flex items-center justify-center my-6">
+                <div id="wimSphere" class="w-48 h-48 rounded-full bg-gradient-to-tr from-pink-400 via-purple-400 to-cyan-400 shadow-2xl flex flex-col items-center justify-center text-white p-4 text-center">
+                    <span id="wimStatus" class="font-black text-lg">Готов?</span>
+                    <span id="wimCounter" class="text-xs font-extrabold opacity-90 mt-1">Нажми Старт</span>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="flex justify-center items-center space-x-6 text-xs font-bold my-4">
+                <div class="glass-pill px-4 py-2 rounded-2xl">
+                    Фаза: <span id="wimPhaseText" class="text-purple-500">Подготовка</span>
+                </div>
+                <div class="glass-pill px-4 py-2 rounded-2xl">
+                    Рекорд задержки: <span id="wimMaxHoldText" class="text-pink-500">0 сек</span>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex justify-center items-center space-x-4 max-w-md mx-auto mt-6">
+                <button onclick="toggleWimHofSession()" id="wimStartBtn" class="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-extrabold rounded-2xl shadow-lg bubble-btn text-sm w-full">
+                    Начать Практику
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- SECTION 2: CONFIDENCE & POWER STATE TRAINER -->
+    <main id="section-confidence" class="tab-content hidden max-w-6xl mx-auto mt-6 px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Sub-Trainer 1: Somatic Power Pose Anchor -->
+            <div class="glass-card rounded-5xl p-6 md:p-8 text-center flex flex-col justify-between">
+                <div>
+                    <div class="inline-block px-3 py-1 bg-purple-500/10 text-purple-500 font-bold text-xs rounded-full uppercase mb-3">
+                        1. Соматический Якорь Позы
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Физический Каркас</h4>
+                    <p class="text-xs opacity-75 mb-6 leading-relaxed">
+                        Прими «Позу Силы» (плечи расправлены, стопы устойчиво на полу, подбородок чуть приподнят). Удерживай её 2 минуты для активизации физиологической уверенности.
+                    </p>
+
+                    <div class="w-36 h-36 rounded-full mx-auto border-4 border-purple-400/40 flex items-center justify-center text-3xl font-black text-purple-500 my-4 shadow-inner" id="poseTimerDisplay">
+                        02:00
+                    </div>
+                </div>
+
+                <button onclick="startPoseTimer()" id="poseBtn" class="w-full py-3 bg-purple-500 text-white font-extrabold rounded-2xl text-xs bubble-btn shadow-md mt-4">
+                    Запустить 2 мин Позы Силы
+                </button>
+            </div>
+
+            <!-- Sub-Trainer 2: NLP Confidence Swish Pattern -->
+            <div class="glass-card rounded-5xl p-6 md:p-8 text-center flex flex-col justify-between">
+                <div>
+                    <div class="inline-block px-3 py-1 bg-pink-500/10 text-pink-500 font-bold text-xs rounded-full uppercase mb-3">
+                        2. Техника НЛП «Взмах» (Swish)
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Перепрограммирование Образа</h4>
+                    <p class="text-xs opacity-75 mb-4 leading-relaxed">
+                        Представь тусклый образ неуверенности. Нажми «Взмах!» — и мгновенно замени его на яркий образ непоколебимого себя!
+                    </p>
+
+                    <div class="relative w-full h-40 rounded-3xl glass-pill flex items-center justify-center overflow-hidden my-4">
+                        <div id="swishWeak" class="swish-image absolute inset-0 bg-slate-400/30 dark:bg-slate-700/50 flex flex-col items-center justify-center text-xs opacity-80">
+                            <span class="text-2xl mb-1">📉</span>
+                            <span>Тусклый Образ</span>
+                        </div>
+                        <div id="swishStrong" class="swish-image absolute inset-0 bg-gradient-to-tr from-pink-500 via-purple-500 to-amber-300 text-white flex flex-col items-center justify-center text-sm font-black opacity-0 scale-50">
+                            <span class="text-4xl mb-1">👑</span>
+                            <span>АБСОЛЮТНАЯ УВЕРЕННОСТЬ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="triggerSwishPattern()" class="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-extrabold rounded-2xl text-xs bubble-btn shadow-md">
+                    Выполнить «Взмах» (Swish)
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Sub-Trainer 3: High-Impact Voice & State Affirmation Calibration -->
+        <div class="glass-card rounded-5xl p-6 md:p-8 text-center mt-6 max-w-3xl mx-auto">
+            <div class="inline-block px-3 py-1 bg-cyan-500/10 text-cyan-500 font-bold text-xs rounded-full uppercase mb-3">
+                3. Калибровка Тона Уверенности
+            </div>
+            <h4 class="text-xl font-bold mb-2">Голосовой Якорь Силы</h4>
+            <p class="text-xs opacity-75 mb-6">
+                Произнеси установку вслух низким, грудным, твердым голосом на выдохе.
+            </p>
+
+            <div class="glass-pill p-6 rounded-3xl mb-6 min-h-[90px] flex items-center justify-center border-l-4 border-purple-500">
+                <p id="confPhraseDisplay" class="font-black text-base md:text-lg text-purple-600 dark:text-purple-300">
+                    Моя воля — это невидимый руль моей реальности.
+                </p>
+            </div>
+
+            <div class="flex space-x-3 justify-center">
+                <button onclick="nextConfPhrase()" class="px-6 py-3 bg-slate-200 dark:bg-slate-700 font-bold rounded-2xl text-xs bubble-btn">
+                    Следующая карточка
+                </button>
+                <button onclick="calibrateVoiceState()" class="px-6 py-3 bg-purple-500 text-white font-bold rounded-2xl text-xs bubble-btn shadow-md">
+                    Зафиксировать состояние
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- SECTION 3: MEMORY TRAINERS -->
+    <main id="section-memory" class="tab-content hidden max-w-6xl mx-auto mt-6 px-4">
+        
+        <div class="flex space-x-2 mb-6 justify-center">
+            <button onclick="switchMemGame('color')" id="mbtn-color" class="px-4 py-2 rounded-2xl glass-pill text-xs font-bold bg-purple-500 text-white">1. Цветовой Код</button>
+            <button onclick="switchMemGame('digit')" id="mbtn-digit" class="px-4 py-2 rounded-2xl glass-pill text-xs font-bold opacity-60">2. Числовая Лавина</button>
+            <button onclick="switchMemGame('symbols')" id="mbtn-symbols" class="px-4 py-2 rounded-2xl glass-pill text-xs font-bold opacity-60">3. Нейро-Символы</button>
+        </div>
+
+        <!-- GAME 1: COLOR CODE -->
+        <div id="mem-color" class="mem-subgame glass-card rounded-5xl p-6 text-center max-w-xl mx-auto">
+            <h4 class="text-xl font-bold mb-1">1. Цветовой Код (Color Sequence)</h4>
+            <p class="text-xs opacity-70 mb-4">Запомни светящуюся комбинацию оттенков и повтори её по порядку.</p>
+            
+            <div class="flex justify-center space-x-4 my-8" id="colorSpheresContainer">
+                <button onclick="pressColorBall('pink')" id="cball-pink" class="color-ball w-16 h-16 rounded-full bg-pink-400 text-white flex items-center justify-center text-xl shadow-lg bubble-btn" style="color:#f472b6;">🌸</button>
+                <button onclick="pressColorBall('purple')" id="cball-purple" class="color-ball w-16 h-16 rounded-full bg-purple-400 text-white flex items-center justify-center text-xl shadow-lg bubble-btn" style="color:#c084fc;">🔮</button>
+                <button onclick="pressColorBall('cyan')" id="cball-cyan" class="color-ball w-16 h-16 rounded-full bg-cyan-400 text-white flex items-center justify-center text-xl shadow-lg bubble-btn" style="color:#22d3ee;">💎</button>
+                <button onclick="pressColorBall('yellow')" id="cball-yellow" class="color-ball w-16 h-16 rounded-full bg-amber-300 text-white flex items-center justify-center text-xl shadow-lg bubble-btn" style="color:#fcd34d;">⭐</button>
+            </div>
+
+            <button onclick="startColorGame()" id="startColorBtn" class="px-6 py-3 bg-purple-500 text-white font-bold rounded-2xl text-xs bubble-btn shadow-md">
+                Старт Цветового Теста
+            </button>
+            <div id="colorScore" class="text-xs font-bold mt-3 text-purple-400">Длина кода: 0</div>
+        </div>
+
+        <!-- GAME 2: DIGIT SPAN WITH ONSCREEN NUMPAD -->
+        <div id="mem-digit" class="mem-subgame hidden glass-card rounded-5xl p-6 text-center max-w-xl mx-auto">
+            <h4 class="text-xl font-bold mb-1">2. Числовая Лавина (Digit Span)</h4>
+            <p class="text-xs opacity-70 mb-3">Запомни число за 1.5 секунды и введи его с помощью кнопок ниже.</p>
+
+            <div id="digitDisplay" class="text-3xl md:text-4xl font-black my-4 h-12 text-pink-500 tracking-widest flex items-center justify-center">---</div>
+
+            <div id="digitInputArea" class="w-full max-w-xs mx-auto py-2 px-4 rounded-2xl glass-pill text-center font-bold text-lg mb-4 h-10 text-purple-500 border border-purple-300">
+                
+            </div>
+
+            <!-- Onscreen Numpad -->
+            <div class="grid grid-cols-3 gap-2 w-56 mx-auto mb-6">
+                <button onclick="pressNumpad('1')" class="py-3 bg-white/80 dark:bg-slate-800 rounded-2xl font-extrabold text-sm shadow-sm bubble-btn">1</button>
+                <button onclick="pressNumpad('2')" class="py-3 bg-white/80 dark:bg-slate-800 rounded-2xl font-extrabold text-sm shadow-sm bubble-btn">2</button>
+                <button onclick="pressNumpad('3')" class="py-3 bg-white/80 dark:bg-slate-800 rounded-2xl font-extrabold text-sm shadow-sm bubble-btn">3</button>
+                <button onclick="pressNumpad('4')" class="py-3 bg-white/80 dark:bg-slate-800 rounded-2xl font-extrabold text-sm shadow-sm bubble-btn">4</button>
+                <button onclick="pressNumpad('5')" class="py-3 bg-white/80 dark:bg-slate-800 rounded-2xl font-extrabold text-sm shadow-sm bubble-btn">5</button>
+                <button onclick="pressNumpad('6')" class="py-3 bg-white/80 dark:bg-slate-800 rounded-2xl font-extrabold text-sm shadow-sm bubble-btn">6</button>
+                <button onclick="pressNumpad('7')" class="py-3 bg-white/80 dark:bg-slate-800 rounded-2xl font-extrabold text-sm shadow-sm bubble-btn">7</button>
+                <button onclick="pressNumpad('8')" class="py-3 bg-white/80 dark:bg-slate-800 rounded-2xl font-extrabold text-sm shadow-sm bubble-btn">8</button>
+                <button onclick="pressNumpad('9')" class="py-3 bg-white/80 dark:bg-slate-800 rounded-2xl font-extrabold text-sm shadow-sm bubble-btn">9</button>
+                <button onclick="clearNumpad()" class="py-3 bg-pink-100 text-pink-600 dark:bg-pink-900/40 dark:text-pink-300 rounded-2xl font-extrabold text-xs shadow-sm bubble-btn"><i class="fas fa-backspace"></i></button>
+                <button onclick="pressNumpad('0')" class="py-3 bg-white/80 dark:bg-slate-800 rounded-2xl font-extrabold text-sm shadow-sm bubble-btn">0</button>
+                <button onclick="checkDigitAnswer()" class="py-3 bg-emerald-400 text-white rounded-2xl font-extrabold text-xs shadow-sm bubble-btn">ОК</button>
+            </div>
+
+            <button onclick="startDigitGame()" class="px-6 py-2 bg-purple-500 text-white font-bold rounded-xl text-xs bubble-btn">
+                Начать Тест
+            </button>
+            <div id="digitScore" class="text-xs font-bold mt-3 text-pink-400">Сложность: 3 цифры</div>
+        </div>
+
+        <!-- GAME 3: NEURO SYMBOLS -->
+        <div id="mem-symbols" class="mem-subgame hidden glass-card rounded-5xl p-6 text-center max-w-xl mx-auto">
+            <h4 class="text-xl font-bold mb-1">3. Нейро-Символы (Pattern Recall)</h4>
+            <p class="text-xs opacity-70 mb-4">Символы покажутся на 2 секунды. Запомни их расположение и открой по порядку!</p>
+
+            <div id="symbolGrid" class="grid grid-cols-3 gap-3 w-64 h-64 mx-auto mb-6">
+                <!-- 3x3 Grid generated via JS -->
+            </div>
+
+            <button onclick="startSymbolGame()" id="startSymbolBtn" class="px-6 py-3 bg-cyan-500 text-white font-bold rounded-2xl text-xs bubble-btn shadow-md">
+                Открыть карточки
+            </button>
+            <div id="symbolScore" class="text-xs font-bold mt-3 text-cyan-400">Уровень: 1</div>
+        </div>
+
+    </main>
+
+    <!-- SECTION 4: SPEECH TRAINERS -->
+    <main id="section-speech" class="tab-content hidden max-w-6xl mx-auto mt-6 px-4">
+        
+        <div class="flex space-x-2 mb-6 justify-center">
+            <button onclick="switchSpeechSub('twisters')" id="sbtn-twisters" class="px-4 py-2 rounded-2xl glass-pill text-xs font-bold bg-purple-500 text-white">1. Скороговорки + Метроном</button>
+            <button onclick="switchSpeechSub('flow')" id="sbtn-flow" class="px-4 py-2 rounded-2xl glass-pill text-xs font-bold opacity-60">2. Словесный Поток</button>
+            <button onclick="switchSpeechSub('sprint')" id="sbtn-sprint" class="px-4 py-2 rounded-2xl glass-pill text-xs font-bold opacity-60">3. Метафорический Спринт</button>
+        </div>
+
+        <!-- SPEECH 1 -->
+        <div id="speech-twisters" class="speech-subgame glass-card rounded-5xl p-6 text-center max-w-xl mx-auto">
+            <h4 class="text-xl font-bold mb-1">1. Скороговорки & Метроном Дикции</h4>
+            <p class="text-xs opacity-70 mb-4">Удерживай чеканный ритм речи под клики метронома.</p>
+
+            <div class="glass-pill p-6 rounded-3xl mb-6 min-h-[100px] flex items-center justify-center">
+                <p id="twisterText" class="font-bold text-base md:text-lg leading-relaxed">
+                    Рододендроны из района реконструированы в риторический ритм
+                </p>
+            </div>
+
+            <div class="flex items-center justify-center space-x-4 mb-6">
+                <span class="text-xs font-bold">Темп: <span id="bpmVal" class="text-pink-500">90</span> BPM</span>
+                <input type="range" min="60" max="160" value="90" id="bpmSlider" oninput="updateBPM(this.value)" class="w-32 accent-pink-500">
+                <button onclick="toggleMetronome()" id="metroBtn" class="px-4 py-2 bg-pink-500 text-white text-xs font-bold rounded-xl bubble-btn">
+                    Вкл Метроном
+                </button>
+            </div>
+
+            <button onclick="nextTwister()" class="px-6 py-2 bg-purple-500 text-white font-bold rounded-xl text-xs bubble-btn">
+                Следующая карточка
+            </button>
+        </div>
+
+        <!-- SPEECH 2 -->
+        <div id="speech-flow" class="speech-subgame hidden glass-card rounded-5xl p-6 text-center max-w-xl mx-auto">
+            <h4 class="text-xl font-bold mb-1">2. Словесный Поток (Флуэнтность)</h4>
+            <p class="text-xs opacity-70 mb-4">Говори без пауз, эканья и остановок на заданную тему в течение 30 секунд.</p>
+
+            <div class="glass-pill p-6 rounded-3xl mb-6">
+                <span class="text-xs text-slate-400 font-bold uppercase">Темы для импровизации</span>
+                <div id="flowTopic" class="text-xl md:text-2xl font-black text-purple-500 my-2">Нажми "Старт"</div>
+            </div>
+
+            <div id="flowTimer" class="text-3xl font-black text-pink-500 mb-6">00:30</div>
+
+            <button onclick="startFlowTimer()" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-2xl text-xs bubble-btn shadow-md">
+                Начать 30-сек Спринт
+            </button>
+        </div>
+
+        <!-- SPEECH 3 -->
+        <div id="speech-sprint" class="speech-subgame hidden glass-card rounded-5xl p-6 text-center max-w-xl mx-auto">
+            <h4 class="text-xl font-bold mb-1">3. Метафорический Спринт (Гибкость Речи)</h4>
+            <p class="text-xs opacity-70 mb-4">Вырази предложенную мысль 3 совершенно разными способами за 30 секунд!</p>
+
+            <div class="glass-pill p-6 rounded-3xl mb-4 text-left border-l-4 border-cyan-400">
+                <span class="text-xs font-bold text-cyan-500 uppercase">Исходная мысль:</span>
+                <div id="sprintThought" class="text-base font-extrabold text-slate-800 dark:text-slate-100 mt-1">
+                    Упорный труд и регулярные тренировки всегда приводят к результату.
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-2 text-left text-xs mb-6 opacity-80">
+                <div class="p-2 bg-purple-500/10 rounded-xl"><b>Вариант 1 (Метафора):</b> Через образ природы или стихии</div>
+                <div class="p-2 bg-pink-500/10 rounded-xl"><b>Вариант 2 (Строгий стиль):</b> Деловой терминологией</div>
+                <div class="p-2 bg-cyan-500/10 rounded-xl"><b>Вариант 3 (Разговорный):</b> Простыми словами другу</div>
+            </div>
+
+            <div id="sprintTimerDisplay" class="text-2xl font-black text-cyan-500 mb-4">00:30</div>
+
+            <div class="flex space-x-3 justify-center">
+                <button onclick="nextSprintThought()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 font-bold rounded-xl text-xs bubble-btn">
+                    Другая мысль
+                </button>
+                <button onclick="startSprintTimer()" class="px-6 py-2 bg-cyan-500 text-white font-bold rounded-xl text-xs bubble-btn shadow-md">
+                    Запустить 30 сек
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- REWARD MODAL -->
+    <div id="rewardModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-card rounded-5xl p-8 max-w-sm w-full mx-4 text-center shadow-2xl transform scale-90 transition-all duration-300" id="rewardModalCard">
+            <div class="w-16 h-16 bg-gradient-to-tr from-yellow-300 to-pink-400 rounded-3xl mx-auto flex items-center justify-center text-3xl shadow-lg mb-4">
+                ✨
+            </div>
+            <h4 id="rewardTitle" class="text-xl font-black mb-2">Отлично!</h4>
+            <p id="rewardDesc" class="text-xs opacity-70 mb-6">Твой нейронный ресурс вырос.</p>
+            <button onclick="closeModal()" class="w-full py-3 bg-purple-600 text-white font-bold rounded-2xl bubble-btn text-xs">
+                Продолжить
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN APP LOGIC -->
+    <script>
+        /* STATE & THEME */
+        let state = { xp: 0, level: 1, isDark: false };
+
+        function toggleTheme() {
+            state.isDark = !state.isDark;
+            const body = document.body;
+            const icon = document.getElementById('themeIcon');
+            const text = document.getElementById('themeText');
+
+            if (state.isDark) {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                icon.className = "fas fa-sun text-amber-300";
+                text.innerText = "День";
+            } else {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                icon.className = "fas fa-moon text-amber-400";
+                text.innerText = "Ночь";
+            }
+        }
+
+        /* AUDIO SYNTHESIZER */
+        let audioCtx = null;
+        let ambientOsc = null, ambientGain = null;
+        let isAudioPlaying = false;
+
+        function initAudio() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        function toggleAudio() {
+            initAudio();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            const icon = document.getElementById('audioIcon');
+            const text = document.getElementById('audioText');
+
+            if (!isAudioPlaying) {
+                ambientOsc = audioCtx.createOscillator();
+                ambientGain = audioCtx.createGain();
+                ambientOsc.type = 'sine';
+                ambientOsc.frequency.setValueAtTime(216, audioCtx.currentTime);
+                ambientGain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                ambientOsc.connect(ambientGain);
+                ambientGain.connect(audioCtx.destination);
+                ambientOsc.start();
+
+                isAudioPlaying = true;
+                icon.className = "fas fa-volume-up text-emerald-400 animate-pulse";
+                text.innerText = "Альфа: Вкл";
+            } else {
+                if (ambientGain) ambientGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.3);
+                setTimeout(() => { if (ambientOsc) ambientOsc.stop(); }, 300);
+                isAudioPlaying = false;
+                icon.className = "fas fa-volume-mute text-pink-400";
+                text.innerText = "Альфа-Звук";
+            }
+        }
+
+        function playTone(freq, duration = 0.2, type = 'sine') {
+            initAudio();
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e){}
+        }
+
+        function playBreathingTone(isInhale, durationSeconds) {
+            initAudio();
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+
+                const startFreq = isInhale ? 180 : 320;
+                const endFreq = isInhale ? 320 : 180;
+
+                osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(endFreq, audioCtx.currentTime + durationSeconds);
+
+                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + (durationSeconds / 2));
+                gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + durationSeconds);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + durationSeconds);
+            } catch(e){}
+        }
+
+        /* XP & REWARDS */
+        function addXP(amount) {
+            state.xp += amount;
+            if (state.xp >= state.level * 100) {
+                state.xp -= state.level * 100;
+                state.level++;
+                showModal("НОВЫЙ НЕЙРО-УРОВЕНЬ!", `Ты достиг ${state.level} уровня фокуса и силы воли!`);
+            }
+            document.getElementById('userLevel').innerText = state.level;
+            document.getElementById('userXP').innerText = `${state.xp} XP`;
+            playTone(528, 0.4);
+        }
+
+        /* TABS NAVIGATION */
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.add('opacity-60'));
+            
+            document.getElementById(`section-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            activeBtn.classList.remove('opacity-60');
+
+            if (tabId === 'memory') initSymbolGrid();
+        }
+
+        /* BREATHING SYSTEM (WIM HOF & 4-7-8) */
+        let wimMode = 'classic';
+        let wimActive = false;
+        let wimBreathsCount = 0;
+        let wimMaxBreaths = 30;
+        let wimPhase = 'breathe'; // 'breathe', 'hold', 'recovery'
+        let wimTimer = null;
+        let wimHoldSeconds = 0;
+        let wimMaxHold = 0;
+        let relaxSubPhase = 'inhale'; // For 4-7-8 mode: 'inhale', 'hold', 'exhale'
+
+        function toggleBreathDesc(descId) {
+            const el = document.getElementById(descId);
+            el.classList.toggle('hidden');
+        }
+
+        function selectWimMode(mode) {
+            if (wimActive) return;
+            wimMode = mode;
+            
+            document.querySelectorAll('#wbox-classic, #wbox-express, #wbox-relax').forEach(box => {
+                box.classList.remove('border-2', 'border-purple-400', 'border-pink-400', 'border-cyan-400');
+            });
+
+            if (mode === 'classic') {
+                wimMaxBreaths = 30;
+                document.getElementById('wbox-classic').classList.add('border-2', 'border-purple-400');
+            } else if (mode === 'express') {
+                wimMaxBreaths = 15;
+                document.getElementById('wbox-express').classList.add('border-2', 'border-pink-400');
+            } else if (mode === 'relax') {
+                wimMaxBreaths = 4; // 4 cycles for 4-7-8
+                document.getElementById('wbox-relax').classList.add('border-2', 'border-cyan-400');
+            }
+        }
+
+        function toggleWimHofSession() {
+            const btn = document.getElementById('wimStartBtn');
+            if (!wimActive) {
+                wimActive = true;
+                wimBreathsCount = 0;
+                wimPhase = 'breathe';
+                relaxSubPhase = 'inhale';
+                btn.innerText = "Завершить Практику";
+                runWimCycle();
+            } else {
+                wimActive = false;
+                clearTimeout(wimTimer);
+                btn.innerText = "Начать Практику";
+                document.getElementById('wimStatus').innerText = "Готов?";
+                document.getElementById('wimCounter').innerText = "Нажми Старт";
+                document.getElementById('wimPhaseText').innerText = "Подготовка";
+                document.getElementById('wimSphere').style.transform = "scale(1)";
+            }
+        }
+
+        function runWimCycle() {
+            if (!wimActive) return;
+
+            const sphere = document.getElementById('wimSphere');
+            const status = document.getElementById('wimStatus');
+            const counter = document.getElementById('wimCounter');
+            const phaseText = document.getElementById('wimPhaseText');
+
+            // MODE 3: 4-7-8 SPECIFIC LOGIC
+            if (wimMode === 'relax') {
+                phaseText.innerText = "Метод 4-7-8: Глубокий Релакс";
+                
+                if (relaxSubPhase === 'inhale') {
+                    status.innerText = "Вдох (4 сек)";
+                    counter.innerText = `Цикл ${wimBreathsCount + 1} / ${wimMaxBreaths}`;
+                    sphere.style.transform = "scale(1.5)";
+                    playBreathingTone(true, 4);
+
+                    wimTimer = setTimeout(() => {
+                        if (!wimActive) return;
+                        relaxSubPhase = 'hold';
+                        runWimCycle();
+                    }, 4000);
+                } else if (relaxSubPhase === 'hold') {
+                    status.innerText = "Задержка (7 сек)";
+                    counter.innerText = "Сохраняй покой";
+                    sphere.style.transform = "scale(1.5)";
+                    playTone(220, 0.2);
+
+                    wimTimer = setTimeout(() => {
+                        if (!wimActive) return;
+                        relaxSubPhase = 'exhale';
+                        runWimCycle();
+                    }, 7000);
+                } else if (relaxSubPhase === 'exhale') {
+                    status.innerText = "Выдох (8 сек)";
+                    counter.innerText = "Плавное расслабление";
+                    sphere.style.transform = "scale(0.85)";
+                    playBreathingTone(false, 8);
+
+                    wimTimer = setTimeout(() => {
+                        if (!wimActive) return;
+                        wimBreathsCount++;
+                        if (wimBreathsCount >= wimMaxBreaths) {
+                            addXP(50);
+                            showModal("4-7-8 ЗАВЕРШЕНО!", "Нервная система переведена в состояние глубокого восстановления!");
+                            toggleWimHofSession();
+                        } else {
+                            relaxSubPhase = 'inhale';
+                            runWimCycle();
+                        }
+                    }, 8000);
+                }
+                return;
+            }
+
+            // CLASSIC / EXPRESS WIM HOF LOGIC
+            if (wimPhase === 'breathe') {
+                phaseText.innerText = "Фаза 1: Силовое Дыхание";
+                wimBreathsCount++;
+                status.innerText = "Вдох / Выдох";
+                counter.innerText = `${wimBreathsCount} / ${wimMaxBreaths}`;
+
+                const duration = wimMode === 'express' ? 1.4 : 2.0;
+
+                // Inhale
+                sphere.style.transform = "scale(1.45)";
+                playBreathingTone(true, duration / 2);
+
+                setTimeout(() => {
+                    if (!wimActive) return;
+                    // Exhale
+                    sphere.style.transform = "scale(0.85)";
+                    playBreathingTone(false, duration / 2);
+                }, (duration / 2) * 1000);
+
+                if (wimBreathsCount >= wimMaxBreaths) {
+                    wimPhase = 'hold';
+                    wimHoldSeconds = 0;
+                    setTimeout(runWimCycle, duration * 1000 + 300);
+                } else {
+                    wimTimer = setTimeout(runWimCycle, duration * 1000 + 200);
+                }
+            } else if (wimPhase === 'hold') {
+                phaseText.innerText = "Фаза 2: Задержка на Выдохе";
+                status.innerText = "ЗАДЕРЖКА";
+                counter.innerText = `${wimHoldSeconds} сек`;
+                sphere.style.transform = "scale(1)";
+
+                wimHoldSeconds++;
+                if (wimHoldSeconds > wimMaxHold) {
+                    wimMaxHold = wimHoldSeconds;
+                    document.getElementById('wimMaxHoldText').innerText = `${wimMaxHold} сек`;
+                }
+
+                playTone(160, 0.08);
+
+                if (wimHoldSeconds >= (wimMode === 'express' ? 30 : 60)) {
+                    wimPhase = 'recovery';
+                    runWimCycle();
+                } else {
+                    wimTimer = setTimeout(runWimCycle, 1000);
+                }
+            } else if (wimPhase === 'recovery') {
+                phaseText.innerText = "Фаза 3: Восстановительный Вдох";
+                status.innerText = "Задержка 15 сек";
+                counter.innerText = "Глубокий Вдох";
+                sphere.style.transform = "scale(1.5)";
+                playTone(432, 1.2);
+
+                setTimeout(() => {
+                    addXP(60);
+                    showModal("ПРОТОКОЛ ВЕЛИКОЛЕПНО ЗАВЕРШЁН!", `Ты прошел полный цикл дыхания Вима Хофа! Макс. задержка: ${wimMaxHold} сек (+60 XP).`);
+                    toggleWimHofSession();
+                }, 15000);
+            }
+        }
+
+        /* CONFIDENCE TRAINER FUNCTIONS */
+        let poseInterval = null;
+
+        function startPoseTimer() {
+            let left = 120;
+            const display = document.getElementById('poseTimerDisplay');
+            const btn = document.getElementById('poseBtn');
+            btn.disabled = true;
+
+            poseInterval = setInterval(() => {
+                left--;
+                const m = Math.floor(left / 60);
+                const s = left % 60;
+                display.innerText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+
+                if (left % 10 === 0) playTone(300, 0.1);
+
+                if (left <= 0) {
+                    clearInterval(poseInterval);
+                    btn.disabled = false;
+                    display.innerText = "02:00";
+                    addXP(40);
+                    showModal("СОМАТИЧЕСКИЙ ЯКОРЬ ЗАКРЕПЛЁН!", "Ты удерживал Позу Силы 2 минуты. Физиологический баланс уверенности активирован!");
+                }
+            }, 1000);
+        }
+
+        function triggerSwishPattern() {
+            const weak = document.getElementById('swishWeak');
+            const strong = document.getElementById('swishStrong');
+
+            playTone(200, 0.1);
+            setTimeout(() => playTone(800, 0.4, 'triangle'), 300);
+
+            weak.style.opacity = '0';
+            weak.style.transform = 'scale(0.2)';
+
+            strong.style.opacity = '1';
+            strong.style.transform = 'scale(1)';
+
+            setTimeout(() => {
+                addXP(20);
+            }, 600);
+
+            setTimeout(() => {
+                weak.style.opacity = '0.8';
+                weak.style.transform = 'scale(1)';
+                strong.style.opacity = '0';
+                strong.style.transform = 'scale(0.5)';
+            }, 3000);
+        }
+
+        const confPhrases = [
+            "Моя воля — это невидимый руль моей реальности.",
+            "Я абсолютно спокоен, собран и незыблем в любых условиях.",
+            "Мой голос несёт силу, а моё присутствие излучает уверенность.",
+            "Дисциплина — это моя главная суперсила и источник свободы."
+        ];
+        let confIdx = 0;
+
+        function nextConfPhrase() {
+            confIdx = (confIdx + 1) % confPhrases.length;
+            document.getElementById('confPhraseDisplay').innerText = confPhrases[confIdx];
+        }
+
+        function calibrateVoiceState() {
+            playTone(440, 0.3);
+            addXP(15);
+            showModal("ГОЛОСОВОЙ ЯКОРЬ ЗАФИКСИРОВАН", "Нейронный отклик уверенности активирован!");
+        }
+
+        /* MEMORY GAME 1: COLOR CODE */
+        let colorSeq = [];
+        let userColorSeq = [];
+        const colorTypes = ['pink', 'purple', 'cyan', 'yellow'];
+
+        function startColorGame() {
+            colorSeq = [];
+            userColorSeq = [];
+            nextColorStep();
+        }
+
+        function nextColorStep() {
+            userColorSeq = [];
+            colorSeq.push(colorTypes[Math.floor(Math.random() * colorTypes.length)]);
+            document.getElementById('colorScore').innerText = `Длина кода: ${colorSeq.length}`;
+
+            let delay = 300;
+            colorSeq.forEach((color) => {
+                setTimeout(() => {
+                    flashColorBall(color);
+                }, delay);
+                delay += 600;
+            });
+        }
+
+        function flashColorBall(color) {
+            const ball = document.getElementById(`cball-${color}`);
+            if (!ball) return;
+            ball.classList.add('active-glow');
+            playTone(color === 'pink' ? 300 : color === 'purple' ? 400 : color === 'cyan' ? 500 : 600, 0.2);
+            setTimeout(() => {
+                ball.classList.remove('active-glow');
+            }, 350);
+        }
+
+        function pressColorBall(color) {
+            flashColorBall(color);
+            userColorSeq.push(color);
+
+            const curr = userColorSeq.length - 1;
+            if (userColorSeq[curr] !== colorSeq[curr]) {
+                playTone(120, 0.3, 'sawtooth');
+                showModal("ОШИБКА В КОДЕ", "Последовательность цветов сбилась. Попробуй сначала!");
+                colorSeq = [];
+                userColorSeq = [];
+                return;
+            }
+
+            if (userColorSeq.length === colorSeq.length) {
+                addXP(20);
+                setTimeout(nextColorStep, 700);
+            }
+        }
+
+        /* MEMORY GAME 2: DIGIT SPAN WITH NUMPAD */
+        let currentDigitStr = "";
+        let enteredDigits = "";
+
+        function startDigitGame() {
+            const len = 3 + Math.floor(state.xp / 60);
+            currentDigitStr = Array.from({length: len}, () => Math.floor(Math.random() * 10)).join('');
+            document.getElementById('digitDisplay').innerText = currentDigitStr;
+            enteredDigits = "";
+            updateEnteredDigitDisplay();
+
+            setTimeout(() => {
+                document.getElementById('digitDisplay').innerText = "???";
+            }, 1600);
+        }
+
+        function pressNumpad(num) {
+            if (enteredDigits.length < 12) {
+                enteredDigits += num;
+                playTone(400 + parseInt(num) * 30, 0.1);
+                updateEnteredDigitDisplay();
+            }
+        }
+
+        function clearNumpad() {
+            enteredDigits = enteredDigits.slice(0, -1);
+            playTone(200, 0.1);
+            updateEnteredDigitDisplay();
+        }
+
+        function updateEnteredDigitDisplay() {
+            document.getElementById('digitInputArea').innerText = enteredDigits || " ";
+        }
+
+        function checkDigitAnswer() {
+            if (enteredDigits === currentDigitStr && currentDigitStr !== "") {
+                addXP(25);
+                showModal("ВЕРНО!", `Цифровая последовательность [${currentDigitStr}] воспроизведена без ошибок.`);
+                enteredDigits = "";
+                currentDigitStr = "";
+                updateEnteredDigitDisplay();
+                document.getElementById('digitDisplay').innerText = "---";
+            } else {
+                playTone(120, 0.3, 'sawtooth');
+                showModal("ОШИБКА", `Правильное число было: ${currentDigitStr || 'Не запущен тест'}`);
+            }
+        }
+
+        /* MEMORY GAME 3: NEURO SYMBOLS */
+        const symbolIcons = ['🌟', '⚡', '🌀', '🔮', '💎', '🚀', '🎯', '🪐', '🎨'];
+        let targetSymbols = [];
+        let userPickedSymbols = [];
+
+        function initSymbolGrid() {
+            const grid = document.getElementById('symbolGrid');
+            grid.innerHTML = '';
+            for (let i = 0; i < 9; i++) {
+                const card = document.createElement('button');
+                card.id = `scard-${i}`;
+                card.className = 'symbol-card w-full h-full rounded-2xl glass-pill flex items-center justify-center text-xl font-bold bg-white/40 dark:bg-slate-800/40 border border-purple-300/30 bubble-btn';
+                card.innerText = '❓';
+                card.onclick = () => pickSymbolCard(i);
+                grid.appendChild(card);
+            }
+        }
+
+        function startSymbolGame() {
+            initSymbolGrid();
+            targetSymbols = [];
+            userPickedSymbols = [];
+
+            while(targetSymbols.length < 3) {
+                let r = Math.floor(Math.random() * 9);
+                if (!targetSymbols.includes(r)) targetSymbols.push(r);
+            }
+
+            targetSymbols.forEach((cardIdx, i) => {
+                const card = document.getElementById(`scard-${cardIdx}`);
+                card.innerText = symbolIcons[i];
+                card.classList.add('bg-pink-300/50', 'text-pink-600');
+            });
+
+            setTimeout(() => {
+                targetSymbols.forEach((cardIdx) => {
+                    const card = document.getElementById(`scard-${cardIdx}`);
+                    card.innerText = '❓';
+                    card.classList.remove('bg-pink-300/50', 'text-pink-600');
+                });
+            }, 2000);
+        }
+
+        function pickSymbolCard(idx) {
+            if (targetSymbols.length === 0) return;
+
+            const card = document.getElementById(`scard-${idx}`);
+            if (targetSymbols.includes(idx) && !userPickedSymbols.includes(idx)) {
+                userPickedSymbols.push(idx);
+                card.innerText = '✨';
+                card.classList.add('bg-emerald-300/50');
+                playTone(500, 0.2);
+
+                if (userPickedSymbols.length === targetSymbols.length) {
+                    addXP(30);
+                    showModal("ОТЛИЧНО!", "Все нейро-символы найдены с высокой точностью!");
+                    targetSymbols = [];
+                }
+            } else if (!targetSymbols.includes(idx)) {
+                playTone(120, 0.3, 'sawtooth');
+                card.innerText = '❌';
+                showModal("ОШИБКА", "Карточка оказалась пустой!");
+                targetSymbols = [];
+            }
+        }
+
+        /* SPEECH TRAINERS */
+        function switchSpeechSub(subId) {
+            document.querySelectorAll('.speech-subgame').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`speech-${subId}`).classList.remove('hidden');
+        }
+
+        function switchMemGame(gameId) {
+            document.querySelectorAll('.mem-subgame').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`mem-${gameId}`).classList.remove('hidden');
+            if (gameId === 'symbols') initSymbolGrid();
+        }
+
+        let metroInterval = null;
+        let isMetroOn = false;
+        let bpm = 90;
+
+        function updateBPM(val) {
+            bpm = val;
+            document.getElementById('bpmVal').innerText = val;
+            if (isMetroOn) {
+                toggleMetronome();
+                toggleMetronome();
+            }
+        }
+
+        function toggleMetronome() {
+            const btn = document.getElementById('metroBtn');
+            if (!isMetroOn) {
+                isMetroOn = true;
+                btn.innerText = "Стоп";
+                metroInterval = setInterval(() => playTone(800, 0.05), (60 / bpm) * 1000);
+            } else {
+                isMetroOn = false;
+                btn.innerText = "Вкл Метроном";
+                clearInterval(metroInterval);
+            }
+        }
+
+        const twistersList = [
+            "Рододендроны из района реконструированы в риторический ритм",
+            "Сшить ситцевый сарафан для стоического самообладания и фокуса",
+            "Клара крали кларионы пока Карл конструировал концепты воли"
+        ];
+        let twisterIdx = 0;
+
+        function nextTwister() {
+            twisterIdx = (twisterIdx + 1) % twistersList.length;
+            document.getElementById('twisterText').innerText = twistersList[twisterIdx];
+            addXP(10);
+        }
+
+        const flowTopics = [
+            "Почему сон, питание и спорт формируют безупречную дисциплину",
+            "Как направить внимание на ключевую цель без отвлечений",
+            "Влияние гипнотической паузы в публичном выступлении",
+            "Управление своими эмоциями через дыхательные практики"
+        ];
+
+        function startFlowTimer() {
+            const topic = flowTopics[Math.floor(Math.random() * flowTopics.length)];
+            document.getElementById('flowTopic').innerText = topic;
+
+            let left = 30;
+            const timerEl = document.getElementById('flowTimer');
+
+            const interval = setInterval(() => {
+                left--;
+                timerEl.innerText = `00:${String(left).padStart(2, '0')}`;
+                if (left <= 0) {
+                    clearInterval(interval);
+                    addXP(30);
+                    showModal("ОТЛИЧНЫЙ ПОТОК!", "30 секунд беспрерывной монологовой речи завершены.");
+                }
+            }, 1000);
+        }
+
+        const sprintThoughts = [
+            "Упорный труд и регулярные тренировки всегда приводят к результату.",
+            "Дисциплина — это умение делать то, что нужно, даже когда не хочется.",
+            "То, куда нацелено твоё внимание, определяет твоё будущее.",
+            "Качественный сон восстанавливает нервную систему эффективнее любых лекарств."
+        ];
+        let sprintIdx = 0;
+
+        function nextSprintThought() {
+            sprintIdx = (sprintIdx + 1) % sprintThoughts.length;
+            document.getElementById('sprintThought').innerText = sprintThoughts[sprintIdx];
+        }
+
+        function startSprintTimer() {
+            let left = 30;
+            const display = document.getElementById('sprintTimerDisplay');
+            const interval = setInterval(() => {
+                left--;
+                display.innerText = `00:${String(left).padStart(2, '0')}`;
+                if (left <= 0) {
+                    clearInterval(interval);
+                    addXP(35);
+                    showModal("СПРИНТ ЗАВЕРШЕН!", "Ты успешно перефразировал мысль тремя речевыми конструкциями!");
+                }
+            }, 1000);
+        }
+
+        /* EXTENDED AFFIRMATIONS */
+        const affs = [
+            "То, куда ты направляешь свою волю и внимание, становится твоей реальностью.",
+            "Сон, питание и физическая нагрузка — три фундаментальных источника моей энергии.",
+            "Моя дисциплина сильнее временных эмоций и минутных отвлечений.",
+            "Каждый день я создаю структуру, которая делает мой успех неизбежным.",
+            "Мой голос звучит глубоко, уверенно и убедительно.",
+            "Мой разум сфокусирован, словно лазер, направленный в одну точку."
+        ];
+        let affIndex = 0;
+
+        function nextAffirmation() {
+            affIndex = (affIndex + 1) % affs.length;
+            document.getElementById('affBanner').innerText = affs[affIndex];
+        }
+
+        /* MODAL CONTROLS */
+        function showModal(title, desc) {
+            document.getElementById('rewardTitle').innerText = title;
+            document.getElementById('rewardDesc').innerText = desc;
+            const modal = document.getElementById('rewardModal');
+            const card = document.getElementById('rewardModalCard');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-90');
+            card.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('rewardModal');
+            const card = document.getElementById('rewardModalCard');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-90');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        window.onload = function() {
+            initSymbolGrid();
+        };
+    </script>
+</body>
+</html>
