@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>НейроПрограммирование v5.0 - Дисциплина, Вим Хоф, 4-7-8, Память, Речь и Уверенность</title>
+    <meta name="theme-color" content="#f5e8ff">
+    <meta name="description" content="Интерактивная нейро-тренировка: дыхание, уверенность, память и речь.">
+    <title>NeuroBloom — пространство фокуса</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -135,8 +137,85 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #A855F7; border-radius: 20px; }
     </style>
+
+    <style id="neurobloom-enhancements">
+        :root { --nb-pink:#ff83bd; --nb-violet:#9b7bff; --nb-cyan:#69dce8; --nb-ink:#302a4a; }
+        html { scroll-behavior:smooth; }
+        body { position:relative; isolation:isolate; }
+        body::before {
+            content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+            background-image: radial-gradient(circle at 12% 18%, rgba(255,183,213,.24) 0 2px, transparent 3px),
+                              radial-gradient(circle at 83% 28%, rgba(155,123,255,.18) 0 2px, transparent 3px),
+                              radial-gradient(circle at 65% 82%, rgba(105,220,232,.2) 0 2px, transparent 3px);
+            background-size: 120px 140px, 170px 180px, 210px 190px;
+            animation: starDrift 24s linear infinite;
+        }
+        .ambient-orbs { position:fixed; inset:0; overflow:hidden; z-index:-1; pointer-events:none; }
+        .ambient-orb { position:absolute; width:clamp(110px,18vw,260px); aspect-ratio:1; border-radius:50%;
+            filter:blur(42px); opacity:.24; animation: orbFloat 13s ease-in-out infinite; }
+        .ambient-orb.one { background:#ff9bc9; top:12%; left:-5%; }
+        .ambient-orb.two { background:#a998ff; top:48%; right:-7%; animation-delay:-5s; }
+        .ambient-orb.three { background:#7be5e0; bottom:-8%; left:38%; animation-delay:-9s; }
+        .sparkle { position:fixed; z-index:0; pointer-events:none; font-size:18px; opacity:.5;
+            animation: sparkleBob 5s ease-in-out infinite; filter:drop-shadow(0 4px 10px #c084fc55); }
+        .sparkle.s1 { top:22%; left:2%; } .sparkle.s2 { top:58%; right:3%; animation-delay:-2s; }
+        .sparkle.s3 { top:82%; left:6%; animation-delay:-3.5s; }
+        header, section, nav, main, #rewardModal { position:relative; }
+        header { animation: riseIn .65s both; }
+        .glass-card { border-radius: clamp(22px,3vw,42px); }
+        .glass-card:hover { box-shadow:0 24px 60px -22px rgba(143,103,220,.28); }
+        .glass-pill { border-radius:24px; }
+        .tab-btn { position:relative; }
+        .tab-btn:not(.opacity-60)::after { content:""; position:absolute; height:3px; bottom:5px; left:25%; right:25%;
+            border-radius:99px; background:linear-gradient(90deg,var(--nb-pink),var(--nb-violet),var(--nb-cyan)); }
+        button:focus-visible, input:focus-visible { outline:3px solid #a78bfa; outline-offset:3px; }
+        button:disabled { opacity:.55; cursor:not-allowed; transform:none !important; }
+        .progress-track { height:5px; position:fixed; top:0; left:0; width:100%; z-index:80; background:transparent; }
+        #scrollProgress { height:100%; width:0; background:linear-gradient(90deg,#ff83bd,#9b7bff,#69dce8); transition:width .12s linear; }
+        .section-kicker { display:inline-flex; align-items:center; gap:7px; padding:7px 11px; border-radius:999px;
+            background:linear-gradient(120deg,#ff83bd20,#9b7bff20,#69dce820); font-size:10px; font-weight:800; letter-spacing:.11em; text-transform:uppercase; }
+        .micro-label { font-size:10px; letter-spacing:.13em; text-transform:uppercase; font-weight:800; opacity:.55; }
+        .glass-card, .glass-pill { transition: background-color .35s ease, border-color .35s ease, box-shadow .35s ease, transform .25s ease; }
+        #wimSphere { position:relative; box-shadow:0 18px 60px #9b7bff35, inset 0 0 28px #ffffff55; }
+        #wimSphere::before { content:""; position:absolute; inset:-12px; border:1px solid #b9a4ff77; border-radius:50%; animation: orbitPulse 4s ease-in-out infinite; }
+        #wimSphere::after { content:"✦"; position:absolute; top:8%; right:8%; color:#fff; font-size:20px; animation: sparkleBob 3s ease-in-out infinite; }
+        .color-ball { position:relative; }
+        .color-ball::after { content:""; position:absolute; inset:-5px; border:1px solid currentColor; border-radius:50%; opacity:0; transform:scale(.7); transition:.25s; }
+        .color-ball.active-glow::after { opacity:.7; transform:scale(1.08); }
+        .symbol-card { transition:transform .25s, background .25s, box-shadow .25s; }
+        .symbol-card:hover { transform:translateY(-3px) rotate(-2deg); }
+        .swish-image { border-radius:22px; }
+        #rewardModal:not(.opacity-0) #rewardModalCard { animation: modalPop .35s cubic-bezier(.2,.9,.3,1.2) both; }
+        .floating { will-change:transform; }
+        @keyframes starDrift { from {background-position:0 0,0 0,0 0} to {background-position:120px 140px,-170px 180px,210px -190px} }
+        @keyframes orbFloat { 0%,100% {transform:translate(0,0) scale(1)} 50% {transform:translate(24px,-32px) scale(1.12)} }
+        @keyframes sparkleBob { 0%,100% {transform:translateY(0) rotate(0deg) scale(1)} 50% {transform:translateY(-13px) rotate(14deg) scale(1.12)} }
+        @keyframes orbitPulse { 0%,100% {transform:scale(.98);opacity:.5} 50% {transform:scale(1.07);opacity:1} }
+        @keyframes riseIn { from {opacity:0;transform:translateY(12px)} to {opacity:1;transform:translateY(0)} }
+        @keyframes modalPop { from {transform:scale(.88) translateY(8px);opacity:0} to {transform:scale(1) translateY(0);opacity:1} }
+        @media (prefers-reduced-motion: reduce) {
+            *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; }
+        }
+        @media (max-width:640px) {
+            header { align-items:flex-start; gap:12px; flex-wrap:wrap; }
+            header > div:last-child { width:100%; justify-content:space-between; flex-wrap:wrap; }
+            header > div:last-child > div { padding:8px 10px; }
+            .glass-card { padding:20px; }
+            #wimSphere { transform-origin:center; }
+            #colorSpheresContainer { gap:10px; flex-wrap:wrap; }
+            #colorSpheresContainer button { width:3.5rem; height:3.5rem; }
+        }
+    </style>
+
 </head>
 <body class="light pb-24">
+    <div class="progress-track" aria-hidden="true"><div id="scrollProgress"></div></div>
+    <div class="ambient-orbs" aria-hidden="true">
+        <span class="ambient-orb one"></span><span class="ambient-orb two"></span><span class="ambient-orb three"></span>
+    </div>
+    <span class="sparkle s1" aria-hidden="true">✦</span>
+    <span class="sparkle s2" aria-hidden="true">✧</span>
+    <span class="sparkle s3" aria-hidden="true">✷</span>
 
     <!-- HEADER / NAVIGATION -->
     <header class="max-w-6xl mx-auto pt-6 px-4 flex justify-between items-center relative z-20">
@@ -148,7 +227,7 @@
                 <h1 class="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-500">
                     НейроПрограммирование
                 </h1>
-                <p class="text-xs font-semibold opacity-60">НЛП • Дисциплина • Вим Хоф • 4-7-8 • Уверенность</p>
+                <p class="text-xs font-semibold opacity-60">FOCUS LAB • ДЫХАНИЕ • ПАМЯТЬ • РЕЧЬ</p>
             </div>
         </div>
 
@@ -880,6 +959,7 @@
         let poseInterval = null;
 
         function startPoseTimer() {
+            if (poseInterval) clearInterval(poseInterval);
             let left = 120;
             const display = document.getElementById('poseTimerDisplay');
             const btn = document.getElementById('poseBtn');
@@ -1253,8 +1333,26 @@
             modal.classList.add('opacity-0', 'pointer-events-none');
         }
 
+
+        /* NEUROBLOOM POLISH: scroll progress + resilient UI defaults */
+        function updateScrollProgress() {
+            const bar = document.getElementById('scrollProgress');
+            if (!bar) return;
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+        }
+        window.addEventListener('scroll', updateScrollProgress, { passive: true });
+        window.addEventListener('resize', updateScrollProgress);
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modal = document.getElementById('rewardModal');
+                if (modal && !modal.classList.contains('opacity-0')) closeModal();
+            }
+        });
+
         window.onload = function() {
             initSymbolGrid();
+            updateScrollProgress();
         };
     </script>
 </body>
